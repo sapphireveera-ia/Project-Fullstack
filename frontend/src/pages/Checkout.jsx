@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { formatRupiah } from '../utils/format';
-import api from '../services/api';
+import api, { getImageUrl } from '../services/api';
 import Loading from '../components/common/Loading';
 
 export default function Checkout() {
@@ -93,7 +93,7 @@ export default function Checkout() {
               <h5 className="mb-3">Ringkasan Pesanan</h5>
               {items.map(item => (
                 <div key={item.id} className="d-flex gap-2 border-bottom py-2">
-                  <img src={item.product?.image_url || '/img/no-image.svg'} className="rounded-2" style={{width:'50px',height:'50px',objectFit:'cover'}} />
+                  <img src={getImageUrl(item.product?.image_url)} className="rounded-2" style={{width:'50px',height:'50px',objectFit:'cover'}} />
                   <div className="flex-grow-1"><small className="fw-bold d-block">{item.product?.name}</small>
                     <small className="text-muted">{item.quantity} x {formatRupiah(item.product?.base_price)}</small></div>
                   <small className="fw-bold">{formatRupiah((item.product?.base_price||0) * item.quantity)}</small>
