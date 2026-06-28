@@ -1,7 +1,22 @@
 import axios from 'axios';
 
+const API_BASE = import.meta.env.VITE_API_BASE || '/api';
+// Backend origin = API base minus the trailing /api, used to resolve
+// relative paths like "/uploads/products/xxx.jpg" returned by the server.
+const BACKEND_ORIGIN = API_BASE.replace(/\/api\/?$/, '');
+
+// Resolve a possibly-relative image path (e.g. "/uploads/products/x.jpg")
+// into a full URL pointing at the backend. Leaves already-absolute URLs
+// (http://, https://) and local frontend assets (e.g. "/img/...") untouched.
+export function getImageUrl(path) {
+  if (!path) return '/img/no-image.svg';
+  if (/^https?:\/\//i.test(path)) return path;
+  if (path.startsWith('/img/')) return path; // local frontend static asset
+  return BACKEND_ORIGIN + path;
+}
+
 const api = axios.create({
-  baseURL: import.meta.env.VITE_API_BASE || '/api',
+  baseURL: API_BASE,
   headers: { 'Content-Type': 'application/json' },
 });
 
