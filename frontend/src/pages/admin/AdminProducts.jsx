@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { formatRupiah } from '../../utils/format';
-import api from '../../services/api';
+import api, { getImageUrl } from '../../services/api';
 import Pagination from '../../components/common/Pagination';
 import Loading from '../../components/common/Loading';
 
@@ -89,7 +89,7 @@ export default function AdminProducts() {
                 {products.map(p => (
                   <tr key={p.id}>
                     <td>{p.id}</td>
-                    <td><img src={p.image_url || '/img/no-image.svg'} className="rounded-2" style={{width:'50px',height:'50px',objectFit:'cover'}} /></td>
+                    <td><img src={getImageUrl(p.image_url)} className="rounded-2" style={{width:'50px',height:'50px',objectFit:'cover'}} /></td>
                     <td>{p.name}</td>
                     <td>{p.category_name || '-'}</td>
                     <td>{formatRupiah(p.base_price)}</td>
