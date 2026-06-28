@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { formatRupiah, formatDate } from '../../utils/format';
-import api from '../../services/api';
+import api, { getImageUrl } from '../../services/api';
 import Loading from '../../components/common/Loading';
 
 export default function AdminOrderDetail() {
@@ -83,7 +83,7 @@ export default function AdminOrderDetail() {
                   {(order.items || []).map(item => (
                     <tr key={item.id}>
                       <td><div className="d-flex align-items-center gap-2">
-                        <img src={item.image_url || item.product?.image_url || '/img/no-image.svg'} className="rounded-2" style={{width:'40px',height:'40px',objectFit:'cover'}} />
+                        <img src={getImageUrl(item.image_url || item.product?.image_url)} className="rounded-2" style={{width:'40px',height:'40px',objectFit:'cover'}} />
                         <span>{item.name || item.product?.name}</span>
                       </div></td>
                       <td>{formatRupiah(item.price)}</td>
