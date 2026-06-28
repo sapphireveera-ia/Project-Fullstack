@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import { formatRupiah, formatDate } from '../utils/format';
-import api from '../services/api';
+import api, { getImageUrl } from '../services/api';
 import Loading from '../components/common/Loading';
 
 export default function ProductDetail() {
@@ -83,13 +83,13 @@ export default function ProductDetail() {
         {/* Images */}
         <div className="col-md-6">
           <div className="card-container text-center">
-            <img src={images[currentImg]?.image_url || '/img/no-image.svg'} alt={product.name}
+            <img src={getImageUrl(images[currentImg]?.image_url)} alt={product.name}
               className="img-fluid rounded-3 mb-3" style={{maxHeight:'400px',objectFit:'cover'}}
               onError={e => { e.target.src='/img/no-image.svg'; }} />
             {images.length > 1 && (
               <div className="d-flex gap-2 justify-content-center flex-wrap">
                 {images.map((img, i) => (
-                  <img key={i} src={img.image_url} alt="" className="rounded-2"
+                  <img key={i} src={getImageUrl(img.image_url)} alt="" className="rounded-2"
                     style={{width:'60px',height:'60px',objectFit:'cover',cursor:'pointer',border: i===currentImg ? '3px solid #C77986' : '3px solid transparent'}}
                     onClick={() => setCurrentImg(i)} />
                 ))}
