@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { formatRupiah } from '../utils/format';
-import api from '../services/api';
+import api, { getImageUrl } from '../services/api';
 import Loading from '../components/common/Loading';
 
 export default function Cart() {
@@ -49,7 +49,7 @@ export default function Cart() {
             <div className="card-container">
               {items.map(item => (
                 <div key={item.id} className="d-flex align-items-center gap-3 border-bottom py-3">
-                  <img src={item.product?.image_url || '/img/no-image.svg'} alt={item.product?.name}
+                  <img src={getImageUrl(item.product?.image_url)} alt={item.product?.name}
                     className="rounded-3" style={{width:'80px',height:'80px',objectFit:'cover'}}
                     onError={e => {e.target.src='/img/no-image.svg'}} />
                   <div className="flex-grow-1">
