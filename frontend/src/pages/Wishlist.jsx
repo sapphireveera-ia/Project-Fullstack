@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { formatRupiah } from '../utils/format';
-import api from '../services/api';
+import api, { getImageUrl } from '../services/api';
 import Loading from '../components/common/Loading';
 
 export default function Wishlist() {
@@ -36,7 +36,7 @@ export default function Wishlist() {
             return (
               <div key={item.id || p.id} className="col-6 col-md-4 col-lg-3">
                 <div className="card card-product">
-                  <Link to={`/produk/${p.id}`}><img src={p.image_url || '/img/no-image.svg'} className="card-img-top" alt={p.name} onError={e => {e.target.src='/img/no-image.svg'}} /></Link>
+                  <Link to={`/produk/${p.id}`}><img src={getImageUrl(p.image_url)} className="card-img-top" alt={p.name} onError={e => {e.target.src='/img/no-image.svg'}} /></Link>
                   <div className="card-body">
                     <span className="badge-category">{p.category_name || 'Umum'}</span>
                     <h6 className="product-name mt-2">{p.name}</h6>
