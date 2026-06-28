@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
 import { formatRupiah } from '../../utils/format';
 import { useAuth } from '../../context/AuthContext';
-import api from '../../services/api';
+import api, { getImageUrl } from '../../services/api';
 import { useState } from 'react';
 
 export default function ProductCard({ product, onWishlistChange }) {
@@ -35,7 +35,7 @@ export default function ProductCard({ product, onWishlistChange }) {
     <div className="card card-product">
       <Link to={`/produk/${product.id}`}>
         <img
-          src={product.image_url || '/img/no-image.svg'}
+          src={getImageUrl(product.image_url)}
           className="card-img-top"
           alt={product.name}
           onError={(e) => { e.target.src = '/img/no-image.svg'; }}
